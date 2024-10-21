@@ -30,7 +30,7 @@ export const getProducts = catchAsyncErrorsMiddleware(async (req, res) => {
 // Get All Categories
 export const getAllCategories = catchAsyncErrorsMiddleware(
 	async (req, res, next) => {
-		const categories = await productModel.distinct('categories'); // Fetch all unique categories
+		const categories = await productModel.distinct('category'); // Fetch all unique categories
 
 		if (!categories) {
 			return next(new ErrorHandler('No Categories Found', 404));

@@ -23,7 +23,7 @@ export const productApi = createApi({
 			query: () => ({
 				url: '/products',
 				params: {
-					categories: 'Latest',
+					category: 'Latest',
 				},
 			}),
 		}),
@@ -31,10 +31,11 @@ export const productApi = createApi({
 			query: () => ({
 				url: '/products',
 				params: {
-					category: 'BestSeller',
+					category: 'Best-Seller',
 				},
 			}),
 		}),
+
 		getCategories: builder.query({
 			query: () => '/products/categories',
 		}),

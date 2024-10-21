@@ -6,7 +6,7 @@ import { IoClose } from 'react-icons/io5';
 const Filters = () => {
 	const [min, setMin] = useState('');
 	const [max, setMax] = useState('');
-	const [selectedCategory, setSelectedCategory] = useState(null);
+	const [selectedCategory, setSelectedCategory] = useState(''); // Single category for selection
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [showFilters, setShowFilters] = useState(false);
 
@@ -21,22 +21,24 @@ const Filters = () => {
 		if (max) newSearchParams.set('max', max);
 		else newSearchParams.delete('max');
 
-		if (selectedCategory && selectedCategory !== 'All') {
+		// If a category is selected, add it to the query params
+		if (selectedCategory) {
 			newSearchParams.set('category', selectedCategory);
 		} else {
 			newSearchParams.delete('category');
 		}
+		newSearchParams.set('page', '1');
 
 		setSearchParams(newSearchParams);
 	}, [min, max, selectedCategory, setSearchParams]);
 
 	const handleCategoryChange = (e) => {
 		const category = e.target.value;
-		if (category === 'All') {
-			setSelectedCategory(null);
-		} else {
-			setSelectedCategory(category);
-		}
+		setSelectedCategory(category); // Only one category can be selected at a time
+	};
+
+	const handleShowAllProducts = () => {
+		setSelectedCategory(''); // Clear the selected category to show all products
 	};
 
 	const toggleFilterPanel = () => {
@@ -49,7 +51,7 @@ const Filters = () => {
 	return (
 		<div className='space-y-4'>
 			<div>
-				{/* Filter button */}
+				{/* Filter button for small screens */}
 				<span
 					className='flex items-center justify-center md:justify-start md:hidden text-white mb-3 p-2 bg-gray-800 rounded shadow hover:bg-gray-700 transition duration-300 cursor-pointer'
 					onClick={toggleFilterPanel}
@@ -106,17 +108,17 @@ const Filters = () => {
 							Category
 						</h5>
 						<div className='space-y-2'>
-							{/* "All" Checkbox */}
+							{/* "All Products" Radio Button */}
 							<div className='flex items-center'>
 								<input
-									className='form-checkbox text-blue-600 border-gray-300 rounded h-5 w-5'
-									type='checkbox'
-									value='All'
-									checked={selectedCategory === null}
-									onChange={handleCategoryChange}
+									className='form-radio text-blue-600 border-gray-300 rounded h-5 w-5 cursor-pointer'
+									type='radio'
+									value=''
+									checked={selectedCategory === ''}
+									onChange={handleShowAllProducts}
 								/>
-								<label className='ml-2 text-gray-700'>
-									All
+								<label className='ml-2 text-gray-700 cursor-pointer'>
+									All Products
 								</label>
 							</div>
 
@@ -127,8 +129,8 @@ const Filters = () => {
 									key={category}
 								>
 									<input
-										className='form-checkbox text-blue-600 border-gray-300 rounded h-5 w-5 cursor-pointer'
-										type='checkbox'
+										className='form-radio text-blue-600 border-gray-300 rounded h-5 w-5 cursor-pointer'
+										type='radio'
 										value={category}
 										checked={selectedCategory === category}
 										onChange={handleCategoryChange}

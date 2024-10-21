@@ -97,10 +97,11 @@ const NewProduct = () => {
 	};
 
 	const availableCategories = [
-		'Harry Potter',
+		'Harry-Potter',
 		'Latest',
-		'Best Seller',
+		'Best-Seller',
 		'Marvel',
+		'Star-Wars',
 	];
 
 	return (
