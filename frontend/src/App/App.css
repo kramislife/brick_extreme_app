@@ -1,0 +1,7 @@
+body {
+	font-size: 15px;
+	font-weight: 500;
+	font-family: 'Montserrat', sans-serif;
+	background: linear-gradient(to top left, #7e9bb2, #1f3a5f) no-repeat;
+	min-height: 100vh;
+}

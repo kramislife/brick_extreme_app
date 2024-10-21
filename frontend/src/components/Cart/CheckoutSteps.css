@@ -1,0 +1,8 @@
+/* Optional custom styles if needed */
+.circle {
+	transition: background-color 0.3s ease;
+}
+
+.line {
+	transition: background-color 0.3s ease;
+}
