@@ -27,7 +27,6 @@ const Filters = () => {
 		} else {
 			newSearchParams.delete('category');
 		}
-		newSearchParams.set('page', '1');
 
 		setSearchParams(newSearchParams);
 	}, [min, max, selectedCategory, setSearchParams]);

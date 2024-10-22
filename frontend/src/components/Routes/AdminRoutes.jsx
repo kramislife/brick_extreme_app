@@ -4,6 +4,8 @@ import ProtectedRoute from '../Auth/ProtectedRoute';
 import Dashboard from '../Admin/Dashboard/Dashboard';
 import ListProducts from '../Admin/Products/ListProducts';
 import NewProduct from '../Admin/Products/NewProduct';
+import UpdateProduct from '../Admin/Products/UpdateProduct';
+import UploadImages from '../Admin/Products/UploadImages';
 
 const AdminRoutes = () => {
 	console.log('In Admin Routes');
@@ -30,6 +32,22 @@ const AdminRoutes = () => {
 				element={
 					<ProtectedRoute admin={true}>
 						<NewProduct />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path='/admin/products/:id'
+				element={
+					<ProtectedRoute admin={true}>
+						<UpdateProduct />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path='/admin/products/:id/upload_images'
+				element={
+					<ProtectedRoute admin={true}>
+						<UploadImages />
 					</ProtectedRoute>
 				}
 			/>

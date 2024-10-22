@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const productApi = createApi({
 	reducerPath: 'productApi',
 	baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
+	tagTypes: ['Product', 'AdminProducts', 'Reviews'],
 	endpoints: (builder) => ({
 		getProducts: builder.query({
 			query: (params) => ({
@@ -16,9 +17,12 @@ export const productApi = createApi({
 				},
 			}),
 		}),
+
 		getProductsDetails: builder.query({
 			query: (id) => `/product/${id}`,
+			providesTags: ['Product'],
 		}),
+
 		getLatestProducts: builder.query({
 			query: () => ({
 				url: '/products',
@@ -27,6 +31,7 @@ export const productApi = createApi({
 				},
 			}),
 		}),
+
 		getBestSellerProducts: builder.query({
 			query: () => ({
 				url: '/products',
@@ -42,6 +47,7 @@ export const productApi = createApi({
 
 		getAdminProducts: builder.query({
 			query: () => '/admin/products',
+			providesTags: ['AdminProducts'],
 		}),
 
 		createNewProduct: builder.mutation({
@@ -49,6 +55,28 @@ export const productApi = createApi({
 				return {
 					url: '/admin/add_products',
 					method: 'POST',
+					body,
+				};
+			},
+			invalidatesTags: ['AdminProducts'],
+		}),
+
+		updateProduct: builder.mutation({
+			query({ id, body }) {
+				return {
+					url: `/admin/products/${id}`,
+					method: 'PUT',
+					body,
+				};
+			},
+			invalidatesTags: ['Product', 'AdminProducts'],
+		}),
+
+		uploadProductImages: builder.mutation({
+			query({ id, body }) {
+				return {
+					url: `/admin/products/${id}/upload_images`,
+					method: 'PUT',
 					body,
 				};
 			},
@@ -65,4 +93,6 @@ export const {
 	useGetCategoriesQuery,
 	useGetAdminProductsQuery,
 	useCreateNewProductMutation,
+	useUpdateProductMutation,
+	useUploadProductImagesMutation,
 } = productApi;

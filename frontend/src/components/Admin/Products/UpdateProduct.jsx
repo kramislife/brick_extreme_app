@@ -5,6 +5,7 @@ import Metadata from '../../Layout/Metadata/Metadata';
 import {
 	useGetProductsDetailsQuery,
 	useUpdateProductMutation,
+	useGetCategoriesQuery, // Assuming this API hook exists
 } from '../../../redux/api/productsApi';
 
 const UpdateProduct = () => {
@@ -16,49 +17,54 @@ const UpdateProduct = () => {
 		price: '',
 		stock: '',
 		seller: '',
-		category: [], // Matches backend model
+		category: [],
 	});
 
 	const { name, description, price, stock, seller, category } = product;
 
-	const { data } = useGetProductsDetailsQuery(params?.id);
-
+	const { data: productData } = useGetProductsDetailsQuery(params?.id);
+	const { data: categoryData } = useGetCategoriesQuery(); // Fetch dynamic categories
 	const [updateProduct, { isLoading, error, isSuccess }] =
 		useUpdateProductMutation();
 
+	// Fetch product details and set them to the state
 	useEffect(() => {
-		if (data?.product) {
+		if (productData?.product) {
 			setProduct({
-				name: data?.product?.name,
-				description: data?.product?.description,
-				price: data?.product?.price,
-				category: data?.product?.category,
-				stock: data?.product?.stock,
-				seller: data?.product?.seller,
+				name: productData.product.name,
+				description: productData.product.description,
+				price: productData.product.price,
+				stock: productData.product.stock,
+				seller: productData.product.seller,
+				category: productData.product.category || [], // Use existing product categories
 			});
 		}
-		if (error) toast.error(error?.data?.message);
+
+		if (error) {
+			toast.error(error?.data?.message);
+		}
 
 		if (isSuccess) {
 			toast.success('Product Updated');
 			navigate('/admin/products');
 		}
-	}, [error, isSuccess, data]);
+	}, [productData, error, isSuccess, navigate]);
 
+	// Handle change in form inputs
 	const handleChange = (e) => {
 		const { name, value, type, checked } = e.target;
 
 		if (type === 'checkbox') {
-			// Handle checkbox changes for category
+			// Handle checkbox changes for category selection
 			if (checked) {
 				setProduct((prev) => ({
 					...prev,
-					category: [...prev.category, value],
+					category: [...prev.category, value], // Add new category to the array
 				}));
 			} else {
 				setProduct((prev) => ({
 					...prev,
-					category: prev.category.filter((cat) => cat !== value),
+					category: prev.category.filter((cat) => cat !== value), // Remove category if unchecked
 				}));
 			}
 		} else {
@@ -82,6 +88,7 @@ const UpdateProduct = () => {
 		}
 	};
 
+	// Submit handler for form submission
 	const submitHandler = (e) => {
 		e.preventDefault();
 
@@ -108,15 +115,11 @@ const UpdateProduct = () => {
 			return;
 		}
 
-		updateProduct({ id: params?.id, body: product }); // Trigger product creation
+		updateProduct({ id: params?.id, body: product }); // Trigger product update
 	};
 
-	const availableCategories = [
-		'Harry-Potter',
-		'Latest',
-		'Best-Seller',
-		'Marvels',
-	];
+	// Available categories fetched dynamically
+	const availableCategories = categoryData?.categories || [];
 
 	return (
 		<>
@@ -241,7 +244,7 @@ const UpdateProduct = () => {
 											value={categoryItem}
 											checked={category.includes(
 												categoryItem
-											)}
+											)} // Check if the category is selected
 											onChange={handleChange}
 											className='mr-2'
 										/>

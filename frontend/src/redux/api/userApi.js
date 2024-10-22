@@ -33,6 +33,7 @@ export const userApi = createApi({
 			},
 			invalidatesTags: ['User'],
 		}),
+		
 		uploadUserAvatar: builder.mutation({
 			query(body) {
 				return {
@@ -43,6 +44,7 @@ export const userApi = createApi({
 			},
 			invalidatesTags: ['User'],
 		}),
+
 		updateUserPassword: builder.mutation({
 			query(body) {
 				return {
@@ -52,6 +54,7 @@ export const userApi = createApi({
 				};
 			},
 		}),
+
 		forgotUserPassword: builder.mutation({
 			query(body) {
 				return {
@@ -61,6 +64,7 @@ export const userApi = createApi({
 				};
 			},
 		}),
+
 		resetUserPassword: builder.mutation({
 			query({ token, body }) {
 				return {

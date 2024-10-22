@@ -29,10 +29,12 @@ const Products = () => {
 	const { data, isLoading, error, isError } = useGetProductsQuery(params);
 
 	useEffect(() => {
+		// console.log('PRODUCT=>', data);
+
 		if (isError) {
 			toast.error(error?.data?.message);
 		}
-	}, [isError, error]);
+	}, [isError, error, data]);
 
 	if (isLoading) {
 		return (
