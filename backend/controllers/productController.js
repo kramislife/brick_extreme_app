@@ -1,6 +1,7 @@
 import catchAsyncErrorsMiddleware from '../middlewares/catchAsyncErrors.middleware.js';
 import productModel from '../models/product.model.js';
 import APIFilters from '../Utils/apiFilters.js';
+import { upload_product_images } from '../Utils/cloudnary.js';
 import ErrorHandler from '../Utils/ErrorHandler.js';
 
 //Get All Product => /api/v1/products
@@ -44,7 +45,6 @@ export const getAllCategories = catchAsyncErrorsMiddleware(
 );
 
 // Get Single Product Details => /api/v1/product/:id
-
 export const getSingleProduct = catchAsyncErrorsMiddleware(
 	async (req, res, next) => {
 		const product = await productModel.findById(req?.params?.id);
@@ -59,7 +59,6 @@ export const getSingleProduct = catchAsyncErrorsMiddleware(
 );
 
 // Update Single Product Details => /api/v1/products/:id
-
 export const updateSingleProduct = catchAsyncErrorsMiddleware(
 	async (req, res, next) => {
 		let product = await productModel.findById(req?.params?.id);
@@ -83,7 +82,6 @@ export const updateSingleProduct = catchAsyncErrorsMiddleware(
 );
 
 // Delete Single Product Details => /api/v1/products/:id
-
 export const deleteProduct = catchAsyncErrorsMiddleware(
 	async (req, res, next) => {
 		const product = await productModel.findByIdAndDelete(req.params.id);
@@ -99,7 +97,6 @@ export const deleteProduct = catchAsyncErrorsMiddleware(
 );
 
 // CREATE/ UPDATE PRODUCT REVIEW => /api/v1/reviews
-
 export const createProductReview = catchAsyncErrorsMiddleware(
 	async (req, res, next) => {
 		const { rating, comment, productId } = req.body;
@@ -145,7 +142,6 @@ export const createProductReview = catchAsyncErrorsMiddleware(
 );
 
 // GET PRODUCT REVIEW => /api/v1/reviews
-
 export const getProductReviews = catchAsyncErrorsMiddleware(
 	async (req, res, next) => {
 		const product = await productModel.findById(req.query.id);
@@ -175,7 +171,6 @@ export const getAdminProducts = catchAsyncErrorsMiddleware(
 );
 
 // Create New Product => /api/v1/admin/products
-
 export const newProduct = catchAsyncErrorsMiddleware(async (req, res) => {
 	req.body.user = req.user._id;
 	console.log(req.user._id);
@@ -189,7 +184,6 @@ export const newProduct = catchAsyncErrorsMiddleware(async (req, res) => {
 });
 
 // DELETE PRODUCT REVIEW => /api/v1/admin/reviews - ADMIN
-
 export const deleteProductReview = catchAsyncErrorsMiddleware(
 	async (req, res, next) => {
 		const productId = req.query.productId;
@@ -225,5 +219,29 @@ export const deleteProductReview = catchAsyncErrorsMiddleware(
 			success: true,
 			updatedProduct,
 		});
+	}
+);
+
+// Upload product images => /api/v1/admin/products/:id/upload_images
+export const uploadProductImages = catchAsyncErrorsMiddleware(
+	async (req, res, next) => {
+		let product = await productModel.findById(req?.params?.id);
+
+		if (!product) {
+			return next(new ErrorHandler('Product not found', 404));
+		}
+
+		const uploader = async (image) =>
+			upload_product_images(image, 'brick_extreme/products');
+
+		const urls = await Promise.all(
+			(req?.body?.images).map(upload_product_images)
+		);
+
+		product?.images?.push(...urls);
+
+		await product?.save();
+
+		res.status(200).json({ product });
 	}
 );

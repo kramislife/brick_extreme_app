@@ -10,6 +10,7 @@ import {
 	getSingleProduct,
 	newProduct,
 	updateSingleProduct,
+	uploadProductImages,
 } from '../controllers/productController.js';
 import {
 	authorizeRoles,
@@ -29,13 +30,20 @@ router.route('/products/categories').get(getAllCategories);
 
 // ---------------------------------------------- ADMIN ROUTES --------------------------------------------------
 
-// GET ALL PRODUCTS
-router.route('/admin/products').get(getAdminProducts);
+// GET ALL PRODUCTS FOR ADMIN
+router
+	.route('/admin/products')
+	.get(isAuthenticatedUser, authorizeRoles('admin'), getAdminProducts);
 
 // ADD PRODUCTS
 router
 	.route('/admin/add_products')
 	.post(isAuthenticatedUser, authorizeRoles('admin'), newProduct);
+
+// ADD PRODUCT IMAGES
+router
+	.route('/admin/products/:id/upload_images')
+	.put(isAuthenticatedUser, authorizeRoles('admin'), uploadProductImages);
 
 // UPDATE SINGLE PRODUCT
 router

@@ -11,8 +11,6 @@ cloudinary.config({
 
 // CLOUDINARY UPLOAD AVATAR IMAGE FILE
 export const upload_user_avatar_file = (file, folder) => {
-	console.log('IN upload_user_avatar_file');
-
 	return new Promise((resolve, reject) => {
 		cloudinary.uploader.upload(
 			file,
@@ -22,18 +20,15 @@ export const upload_user_avatar_file = (file, folder) => {
 			},
 			(error, result) => {
 				if (error) {
-					console.log('in error cloudnary file');
-
 					reject(error); // Reject promise if there is an error
 				} else {
 					resolve({
 						public_id: result.public_id,
 						url: result.url,
 					});
-					console.log('IN upload_user_avatar_file_end');
 				}
 			}
-		);``
+		);
 	});
 };
 
@@ -49,4 +44,28 @@ export const delete_user_avatar_file = async (file) => {
 	} catch (error) {
 		throw new Error(`Failed to delete the file: ${error.message}`);
 	}
+};
+
+// UPLOAD PRODUCT IMAGES
+
+export const upload_product_images = (file, folder) => {
+	return new Promise((resolve, reject) => {
+		cloudinary.uploader.upload(
+			file,
+			{
+				resource_type: 'auto',
+				folder: folder,
+			},
+			(error, result) => {
+				if (error) {
+					reject(error);
+				} else {
+					resolve({
+						public_id: result.public_id,
+						url: result.url,
+					});
+				}
+			}
+		);
+	});
 };
