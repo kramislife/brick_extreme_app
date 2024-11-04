@@ -35,6 +35,7 @@ const LatestProducts = () => {
 	const handleProductClick = (product) => {
 		return navigate(`/product/${product._id}`);
 	};
+
 	return (
 		<div className='p-4 py-2'>
 			<h2 className='text-3xl md:text-7xl text-gray-300 font-extrabold mb-4 text-start py-6 header-text'>
@@ -49,10 +50,13 @@ const LatestProducts = () => {
 					>
 						<div className='w-full'>
 							<img
-								// src={product.images[0].url}
-								src={default_image}
-								alt={product.title}
+								src={product.images?.[0]?.url || default_image}
+								alt={product.name || 'Product Image'}
 								className='w-full'
+								onError={(e) => {
+									e.target.onerror = null; // prevents looping
+									e.target.src = default_image;
+								}}
 							/>
 						</div>
 						<div className='p-4 h-[120px]'>

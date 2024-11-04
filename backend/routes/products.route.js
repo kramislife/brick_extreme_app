@@ -2,6 +2,7 @@ import express from 'express';
 import {
 	createProductReview,
 	deleteProduct,
+	deleteProductImage,
 	deleteProductReview,
 	getAdminProducts,
 	getAllCategories,
@@ -44,6 +45,11 @@ router
 router
 	.route('/admin/products/:id/upload_images')
 	.put(isAuthenticatedUser, authorizeRoles('admin'), uploadProductImages);
+
+// DELETE PRODUCT IMAGES
+router
+	.route('/admin/products/:id/delete_image')
+	.put(isAuthenticatedUser, authorizeRoles('admin'), deleteProductImage);
 
 // UPDATE SINGLE PRODUCT
 router

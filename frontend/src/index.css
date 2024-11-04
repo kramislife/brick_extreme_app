@@ -8,7 +8,7 @@
 
 /* Change the scrollbar width */
 ::-webkit-scrollbar {
-	width: 5px; /* Adjust the width here */
+	width: 0px; /* Adjust the width here */
 }
 
 /* Customize the track of the scrollbar */
@@ -19,7 +19,7 @@
 /* Customize the thumb (scroll indicator) */
 ::-webkit-scrollbar-thumb {
 	background-color: #888;
-	border-radius: 10px;
+	border-radius: 1px;
 }
 
 /* On hover */

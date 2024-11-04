@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import DefaultImage from '../../../assets/default_product.png';
 import {
+	useDeleteProductImageMutation,
 	useGetProductsDetailsQuery,
 	useUploadProductImagesMutation,
 } from '../../../redux/api/productsApi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FiTrash } from 'react-icons/fi'; // Importing react-icons
 import AdminLayout from '../../Layout/AdminLayout/AdminLayout';
+import { FaRegTimesCircle, FaTimesCircle } from 'react-icons/fa';
 
 const UploadImages = () => {
 	const params = useParams();
@@ -19,8 +21,14 @@ const UploadImages = () => {
 	const [uploadedImages, setUploadedImages] = useState([]);
 
 	const { data } = useGetProductsDetailsQuery(params?.id);
+
 	const [uploadProductImages, { isLoading, error, isError, isSuccess }] =
 		useUploadProductImagesMutation();
+
+	const [
+		deleteProductImage,
+		{ isLoading: isDeleteLoading, error: deleteError },
+	] = useDeleteProductImageMutation();
 
 	useEffect(() => {
 		if (data?.product) {
@@ -31,16 +39,19 @@ const UploadImages = () => {
 			toast.error(error?.data?.message);
 		}
 
+		if (deleteError) {
+			toast.error(deleteError?.data?.message);
+		}
+
 		if (isSuccess) {
 			setImagesPreview([]);
 			toast.success('Images Uploaded');
 			navigate('/admin/products');
 		}
-	}, [data, isError, isSuccess]);
+	}, [data, isError, isSuccess, deleteError]);
 
 	const handleProductImageUpload = (e) => {
 		const uploadedFiles = Array.from(e.target.files);
-		console.log('Handle Image Upload => ', uploadedFiles);
 
 		uploadedFiles.forEach((file) => {
 			const reader = new FileReader();
@@ -77,6 +88,10 @@ const UploadImages = () => {
 	const submitHandler = (e) => {
 		e.preventDefault();
 		uploadProductImages({ id: params?.id, body: { images } });
+	};
+
+	const handleDelete = (imgId) => {
+		deleteProductImage({ id: params?.id, body: { imgId } });
 	};
 
 	return (
@@ -132,7 +147,11 @@ const UploadImages = () => {
 									? 'cursor-not-allowed bg-gray-500'
 									: 'bg-blue-600 hover:bg-blue-700'
 							}`}
-							disabled={isLoading || images.length <= 0}
+							disabled={
+								isLoading ||
+								images.length <= 0 ||
+								isDeleteLoading
+							}
 						>
 							{isLoading ? 'Uploading...' : 'Upload'}
 						</button>
@@ -194,11 +213,28 @@ const UploadImages = () => {
 											className='w-full aspect-square object-fill  rounded-t-lg'
 										/>
 										<button
-											className='w-full bg-red-600 text-white py-1 rounded hover:bg-red-700 rounded-b-lg'
+											className={`w-full text-white py-1 rounded rounded-b-lg flex items-center justify-center ${
+												isDeleteLoading
+													? 'cursor-not-allowed bg-gray-500'
+													: 'bg-red-600 hover:bg-red-700'
+											}`}
 											type='button'
-											onClick={() => handleDelete(img)} // Make sure you define handleDelete if needed
+											disabled={
+												isLoading || isDeleteLoading
+											}
+											onClick={() =>
+												handleDelete(img?.public_id)
+											}
 										>
-											<FiTrash className='inline mr-2' />
+											{isLoading || isDeleteLoading ? (
+												<span className='animate-spin'>
+													<FaRegTimesCircle />
+												</span>
+											) : (
+												<span className='flex items-center'>
+													<FiTrash className='mr-2 inline' />
+												</span>
+											)}
 										</button>
 									</div>
 								))}

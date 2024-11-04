@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
-import default_image from '../../../assets/droid1.jpg';
-import default_image2 from '../../../assets/droid2.png';
 import { useGetProductsDetailsQuery } from '../../../redux/api/productsApi';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -9,6 +6,8 @@ import Loader from '../../Layout/Loader/Loader';
 import StarRatings from 'react-star-ratings';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCartItem } from '../../../redux/features/cartSlice';
+import default_image from '../../../assets/droid1.jpg';
+import default_image2 from '../../../assets/droid2.png';
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -22,6 +21,9 @@ const ProductDetails = () => {
 	const [quantity, setQuantity] = useState(1);
 
 	useEffect(() => {
+		if(product) {
+			console.log(product);
+		}
 		setActiveImage(product?.images?.[0]?.url || default_image);
 	}, [product]);
 
@@ -42,17 +44,15 @@ const ProductDetails = () => {
 			product: product?._id,
 			name: product?.name,
 			price: product?.price,
-			image: product?.images?.[0]?.url,
+			image: product?.images?.[0]?.url || default_image,
 			stock: product?.stock,
 			quantity,
 		};
 
-		// Find the item in the cart
 		const existingItem = cartItems.find(
 			(i) => i.product === cartItem.product
 		);
 
-		// Check if the total quantity exceeds the available stock
 		const totalQuantityInCart = existingItem
 			? existingItem.quantity + quantity
 			: quantity;
@@ -62,7 +62,6 @@ const ProductDetails = () => {
 			return;
 		}
 
-		// Dispatch action to add/update the cart
 		dispatch(setCartItem(cartItem));
 	};
 
@@ -80,27 +79,29 @@ const ProductDetails = () => {
 										: 'border-gray-300'
 								} hover:border-black`}
 								key={index}
-								src={default_image}
+								src={img?.url || default_image2}
 								alt={`Thumbnail ${index + 1}`}
 								onClick={() =>
-									setActiveImage(img.url || default_image)
+									setActiveImage(img.url || default_image2)
 								}
+								onError={(e) => (e.target.src = default_image2)}
 							/>
 						))}
 					</div>
 
 					{/* Main Image */}
-					<div className='flex-1   flex items-center justify-center h-[80vh] mx-4'>
+					<div className='flex-1 flex items-center justify-center h-[80vh] mx-4'>
 						<img
-							className='w-full h-full rounded-lg '
-							src={default_image2}
+							className='w-full h-full rounded-lg'
+							src={activeImage}
 							alt={product?.name || 'Product Image'}
+							onError={(e) => (e.target.src = default_image)}
 						/>
 					</div>
 				</div>
 
 				{/* Product Details */}
-				<div className='opacity-1 flex-1 px-2 '>
+				<div className='opacity-1 flex-1 px-2'>
 					<h1 className='text-2xl md:text-4xl font-bold mb-2'>
 						{product?.name}
 					</h1>
@@ -171,7 +172,7 @@ const ProductDetails = () => {
 
 					{/* Product Status */}
 					<div className='flex justify-start gap-2 items-center mt-2'>
-						<p className=''>
+						<p>
 							Status:
 							<span
 								className={
@@ -185,7 +186,6 @@ const ProductDetails = () => {
 									: ' Out of Stock '}
 							</span>
 						</p>
-
 						{product?.stock <= 5 && product?.stock > 0 && (
 							<p className='text-orange-500 font-bold'>
 								Hurry! Only {product?.stock} left.
@@ -198,7 +198,7 @@ const ProductDetails = () => {
 						<h2 className='text-lg font-semibold mb-2'>
 							Description
 						</h2>
-						<p className='text-balance text-justify leading-1 pb-2 font-serif'>
+						<p className='leading-1 pb-2 font-serif'>
 							{product?.description}
 						</p>
 					</div>

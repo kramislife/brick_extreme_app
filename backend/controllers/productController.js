@@ -1,7 +1,10 @@
 import catchAsyncErrorsMiddleware from '../middlewares/catchAsyncErrors.middleware.js';
 import productModel from '../models/product.model.js';
 import APIFilters from '../Utils/apiFilters.js';
-import { upload_product_images } from '../Utils/cloudnary.js';
+import {
+	delete_user_avatar_file,
+	upload_product_images,
+} from '../Utils/cloudnary.js';
 import ErrorHandler from '../Utils/ErrorHandler.js';
 
 //Get All Product => /api/v1/products
@@ -243,5 +246,29 @@ export const uploadProductImages = catchAsyncErrorsMiddleware(
 		await product?.save();
 
 		res.status(200).json({ product });
+	}
+);
+
+// DELETE product images => /api/v1/admin/products/:id/delete_image
+export const deleteProductImage = catchAsyncErrorsMiddleware(
+	async (req, res, next) => {
+		let product = await productModel.findById(req?.params?.id);
+
+		if (!product) {
+			return next(new ErrorHandler('Product not found', 404));
+		}
+
+		const isDeleted = await delete_user_avatar_file(req.body.imgId);
+
+		if (isDeleted) {
+			product.images = product?.images?.filter(
+				(img) => img.public_id !== req.body.imgId
+			);
+		}
+		await product.save();
+
+		return res.status(200).json({
+			product,
+		});
 	}
 );

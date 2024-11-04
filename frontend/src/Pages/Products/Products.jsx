@@ -29,7 +29,6 @@ const Products = () => {
 	const { data, isLoading, error, isError } = useGetProductsQuery(params);
 
 	useEffect(() => {
-		// console.log('PRODUCT=>', data);
 
 		if (isError) {
 			toast.error(error?.data?.message);
@@ -73,8 +72,8 @@ const Products = () => {
 								const discountPrice = (
 									product.price * 0.9
 								).toFixed(2); // Assuming a 10% discount
-								const hoverImage = defaultImage; // You can replace this with product?.images[1]?.url || defaultImage
-								const defaultImageSrc = defaultImage2; // You can replace this with product?.images[0]?.url || defaultImage2
+								const hoverImage =  product?.images[1]?.url || defaultImage; 
+								const defaultImageSrc = product?.images[0]?.url || defaultImage2;
 
 								return (
 									<Link
