@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema(
 			},
 		],
 		category: {
-			type: [String], // More specific definition
+			type: [String],
 			required: [true, 'Please enter product category'],
 		},
 		seller: {
