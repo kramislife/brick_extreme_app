@@ -2,72 +2,67 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Metadata from '../../Layout/Metadata/Metadata';
-import { useCreateNewProductMutation } from '../../../redux/api/productsApi';
+import {
+	useCreateNewProductMutation,
+	useGetCategoriesQuery,
+} from '../../../redux/api/productsApi';
 
 const NewProduct = () => {
 	const navigate = useNavigate();
+
+	// State to manage product details
 	const [product, setProduct] = useState({
 		name: '',
 		description: '',
 		price: '',
 		stock: '',
 		seller: '',
-		categories: [],
+		category: [],
 	});
 
-	const { name, description, price, stock, seller, categories } = product;
+	const { name, description, price, stock, seller, category } = product;
 
+	// Fetch categories from the API
+	const { data: categoriesData, isLoading: isLoadingCategories } =
+		useGetCategoriesQuery();
+
+	useEffect(() => {
+		console.log(categoriesData?.categories);
+	}, [categoriesData]);
+
+	// Create product mutation
 	const [createNewProduct, { isLoading, error, isSuccess }] =
 		useCreateNewProductMutation();
 
+	// Handle side effects after product creation
 	useEffect(() => {
-		if (error) toast.error(error?.data?.message);
+		if (error) toast.error(error?.data?.message || 'An error occurred');
 		if (isSuccess) {
 			toast.success('Product Created');
 			navigate('/admin/products');
 		}
 	}, [error, isSuccess, navigate]);
 
+	// Handle input changes for both text and checkbox fields
 	const handleChange = (e) => {
 		const { name, value, type, checked } = e.target;
 
 		if (type === 'checkbox') {
-			// Handle checkbox changes for categories
 			if (checked) {
-				setProduct({ ...product, categories: [...categories, value] });
+				setProduct({ ...product, category: [...category, value] });
 			} else {
 				setProduct({
 					...product,
-					categories: categories.filter(
-						(category) => category !== value
-					),
+					category: category.filter((cat) => cat !== value),
 				});
 			}
 		} else {
-			// For price and stock validation
-			if (name === 'price') {
-				const regex = /^(0|[1-9]\d*)(\.\d{0,2})?$/;
-
-				if (value === '' || regex.test(value)) {
-					setProduct({ ...product, [name]: value });
-				}
-			} else if (name === 'stock') {
-				const stockValue = parseInt(value, 10);
-				if (
-					value === '' ||
-					(stockValue >= 0 && stockValue.toString() === value)
-				) {
-					setProduct({ ...product, [name]: value });
-				}
-			} else {
-				setProduct({ ...product, [name]: value });
-			}
+			setProduct({ ...product, [name]: value });
 		}
 	};
 
-	const submitHandler = (e) => {
-		e.preventDefault();
-
+	// Validate form inputs before submission
+	const validateInputs = () => {
 		const priceValue = parseFloat(price);
 		if (
 			isNaN(priceValue) ||
@@ -75,34 +70,31 @@ const NewProduct = () => {
 			!/^(0|[1-9]\d*)(\.\d{0,2})?$/.test(price)
 		) {
 			toast.error(
-				'Please enter a valid price in $ (positive number up to 2 decimal places).'
+				'Please enter a valid price (positive number, up to 2 decimal places).'
 			);
-			return;
+			return false;
 		}
 
 		const stockValue = parseInt(stock, 10);
 		if (isNaN(stockValue) || stockValue < 0) {
 			toast.error('Stock must be a non-negative integer (0 or greater).');
-			return;
+			return false;
 		}
 
 		if (!seller) {
 			toast.error("Please enter the seller's name.");
-			return;
+			return false;
 		}
 
-		console.log('PRODUCT => ', product);
-
-		createNewProduct(product); // Trigger the product creation
+		return true;
 	};
 
-	const availableCategories = [
-		'Harry-Potter',
-		'Latest',
-		'Best-Seller',
-		'Marvel',
-		'Star-Wars',
-	];
+	// Handle form submission
+	const submitHandler = (e) => {
+		e.preventDefault();
+		if (!validateInputs()) return;
+		createNewProduct(product);
+	};
 
 	return (
 		<>
@@ -165,7 +157,7 @@ const NewProduct = () => {
 									Price ($)
 								</label>
 								<input
-									type='text' // Use text type to allow decimal validation
+									type='number'
 									id='price_field'
 									className='w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md'
 									name='price'
@@ -183,7 +175,7 @@ const NewProduct = () => {
 									Stock
 								</label>
 								<input
-									type='text' // Use text type for stock input
+									type='number'
 									id='stock_field'
 									className='w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md'
 									name='stock'
@@ -217,31 +209,41 @@ const NewProduct = () => {
 						<div>
 							<label className='text-white'>Categories</label>
 							<div className='flex flex-col'>
-								{availableCategories.map((category) => (
-									<label
-										key={category}
-										className='flex items-center text-white'
-									>
-										<input
-											type='checkbox'
-											value={category}
-											checked={categories.includes(
-												category
-											)}
-											onChange={handleChange}
-											className='mr-2'
-										/>
-										{category}
-									</label>
-								))}
+								{isLoadingCategories ? (
+									<p className='text-white'>
+										Loading categories...
+									</p>
+								) : (
+									categoriesData?.categories?.map(
+										(cat, index) => (
+											<label
+												key={index}
+												className='flex items-center text-white'
+											>
+												<input
+													type='checkbox'
+													value={cat}
+													checked={category.includes(
+														cat
+													)}
+													onChange={handleChange}
+													className='mr-2'
+												/>
+												{cat}
+											</label>
+										)
+									)
+								)}
 							</div>
 						</div>
 
+						{/* Submit Button */}
 						<button
 							type='submit'
 							className='w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded'
+							disabled={isLoading}
 						>
-							Create Product
+							{isLoading ? 'Creating...' : 'Create Product'}
 						</button>
 					</form>
 				</div>

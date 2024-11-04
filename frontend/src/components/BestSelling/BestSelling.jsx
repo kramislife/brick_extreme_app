@@ -30,7 +30,7 @@ const BestSelling = () => {
 		.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 		.slice(0, 4);
 
-	// Handle Product click
+	// Function to handle product click and show details in the console
 	const handleProductClick = (product) => {
 		return navigate(`/product/${product._id}`);
 	};
@@ -47,15 +47,12 @@ const BestSelling = () => {
 						className='rounded-lg bg-slate-800 overflow-hidden shadow-md shadow-blue-400 hover:shadow-white hover:translate-y-1 cursor-pointer'
 						onClick={() => handleProductClick(product)}
 					>
-						<div className='w-full'>
+						<div className='w-full aspect-square bg-black'>
 							<img
-								src={product.images?.[0]?.url || default_image2}
-								alt={product.name || 'Product Image'}
+								src={product.images[0].url || default_image2
+								}
+								alt={product.title}
 								className='w-full'
-								onError={(e) => {
-									e.target.onerror = null; // prevents looping
-									e.target.src = default_image2;
-								}}
 							/>
 						</div>
 						<div className='p-4 h-[120px]'>
