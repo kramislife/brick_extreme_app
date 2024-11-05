@@ -105,7 +105,7 @@ const ProductDetails = () => {
 					<h1 className='text-2xl md:text-4xl font-bold mb-2'>
 						{product?.name}
 					</h1>
-					<p className='mb-2 text-2xl'>Product ID: {product?._id}</p>
+					{/* <p className='mb-2 text-2xl'>Product ID: {product?._id}</p> */}
 					<p className='mb-2 text-2xl'>
 						Categories: <span>{product?.category?.join(', ')}</span>
 					</p>
