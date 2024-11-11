@@ -13,7 +13,7 @@ const NewProduct = () => {
 	// State to manage product details
 	const [product, setProduct] = useState({
 		name: '',
-		description: '',
+		description: [''], // Array to store each paragraph as a separate item
 		price: '',
 		stock: '',
 		seller: '',
@@ -23,16 +23,14 @@ const NewProduct = () => {
 	const { name, description, price, stock, seller, category } = product;
 
 	// Fetch categories from the API
-	const { data: categoriesData, isLoading: isLoadingCategories } =
-		useGetCategoriesQuery();
+	const { data: categoriesData, isLoading: isLoadingCategories } = useGetCategoriesQuery();
 
 	useEffect(() => {
 		console.log(categoriesData?.categories);
 	}, [categoriesData]);
 
 	// Create product mutation
-	const [createNewProduct, { isLoading, error, isSuccess }] =
-		useCreateNewProductMutation();
+	const [createNewProduct, { isLoading, error, isSuccess }] = useCreateNewProductMutation();
 
 	// Handle side effects after product creation
 	useEffect(() => {
@@ -43,11 +41,24 @@ const NewProduct = () => {
 		}
 	}, [error, isSuccess, navigate]);
 
-	// Handle input changes for both text and checkbox fields
+	// Handle input changes with specific validation for description, price, and stock
 	const handleChange = (e) => {
 		const { name, value, type, checked } = e.target;
 
-		if (type === 'checkbox') {
+		if (name === 'price') {
+			// Format price to allow only up to 2 decimal places
+			const formattedPrice = value.replace(/^(\d+)(\.\d{0,2})?.*$/, '$1$2');
+			setProduct({ ...product, price: formattedPrice });
+		} else if (name === 'stock') {
+			// Allow only integers for stock
+			const formattedStock = value.replace(/\D/g, ''); // Remove non-numeric characters
+			setProduct({ ...product, stock: formattedStock });
+		} else if (name === 'description') {
+			setProduct({
+				...product,
+				description: value.split('\n'), // Split by new line to allow multi-paragraph input
+			});
+		} else if (type === 'checkbox') {
 			if (checked) {
 				setProduct({ ...product, category: [...category, value] });
 			} else {
@@ -93,7 +104,13 @@ const NewProduct = () => {
 	const submitHandler = (e) => {
 		e.preventDefault();
 		if (!validateInputs()) return;
-		createNewProduct(product);
+		// Prepare the product object for submission with joined description paragraphs
+		const formattedProduct = {
+			...product,
+			description: product.description.join('\n'), // Join paragraphs into single text for backend storage
+		};
+
+		createNewProduct(formattedProduct);
 	};
 
 	return (
@@ -111,10 +128,7 @@ const NewProduct = () => {
 
 						{/* Product Name */}
 						<div className='space-y-2'>
-							<label
-								htmlFor='name_field'
-								className='text-white'
-							>
+							<label htmlFor='name_field' className='text-white'>
 								Name
 							</label>
 							<input
@@ -130,10 +144,7 @@ const NewProduct = () => {
 
 						{/* Product Description */}
 						<div className='space-y-2'>
-							<label
-								htmlFor='description_field'
-								className='text-white'
-							>
+							<label htmlFor='description_field' className='text-white'>
 								Description
 							</label>
 							<textarea
@@ -141,7 +152,7 @@ const NewProduct = () => {
 								id='description_field'
 								rows='4'
 								name='description'
-								value={description}
+								value={description.join('\n')} // Display paragraphs joined by newline
 								onChange={handleChange}
 								required
 							></textarea>
@@ -150,14 +161,11 @@ const NewProduct = () => {
 						{/* Price and Stock Fields */}
 						<div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
 							<div className='space-y-2'>
-								<label
-									htmlFor='price_field'
-									className='text-white'
-								>
+								<label htmlFor='price_field' className='text-white'>
 									Price ($)
 								</label>
 								<input
-									type='number'
+									type='text'
 									id='price_field'
 									className='w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md'
 									name='price'
@@ -168,14 +176,11 @@ const NewProduct = () => {
 							</div>
 
 							<div className='space-y-2'>
-								<label
-									htmlFor='stock_field'
-									className='text-white'
-								>
+								<label htmlFor='stock_field' className='text-white'>
 									Stock
 								</label>
 								<input
-									type='number'
+									type='text' // Set as text to allow custom validation
 									id='stock_field'
 									className='w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md'
 									name='stock'
@@ -188,10 +193,7 @@ const NewProduct = () => {
 
 						{/* Seller Field */}
 						<div className='space-y-2'>
-							<label
-								htmlFor='seller_field'
-								className='text-white'
-							>
+							<label htmlFor='seller_field' className='text-white'>
 								Seller
 							</label>
 							<input
@@ -210,29 +212,20 @@ const NewProduct = () => {
 							<label className='text-white'>Categories</label>
 							<div className='flex flex-col'>
 								{isLoadingCategories ? (
-									<p className='text-white'>
-										Loading categories...
-									</p>
+									<p className='text-white'>Loading categories...</p>
 								) : (
-									categoriesData?.categories?.map(
-										(cat, index) => (
-											<label
-												key={index}
-												className='flex items-center text-white'
-											>
-												<input
-													type='checkbox'
-													value={cat}
-													checked={category.includes(
-														cat
-													)}
-													onChange={handleChange}
-													className='mr-2'
-												/>
-												{cat}
-											</label>
-										)
-									)
+									categoriesData?.categories?.map((cat, index) => (
+										<label key={index} className='flex items-center text-white'>
+											<input
+												type='checkbox'
+												value={cat}
+												checked={category.includes(cat)}
+												onChange={handleChange}
+												className='mr-2'
+											/>
+											{cat}
+										</label>
+									))
 								)}
 							</div>
 						</div>
