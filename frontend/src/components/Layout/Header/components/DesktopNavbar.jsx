@@ -9,8 +9,8 @@ const HeaderNavLinks = ({ navItems }) => (
           to={item.path}
           className={({ isActive }) =>
             isActive
-              ? "underline underline-offset-8 text-primary"
-              : "text-primary hover:text-gray-300"
+              ? "underline underline-offset-8 text-light hover:text-gray-300"
+              : "text-light hover:text-gray-300"
           }
         >
           {item.label}

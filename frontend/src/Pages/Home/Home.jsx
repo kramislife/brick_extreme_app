@@ -1,27 +1,31 @@
-import React from 'react';
-import Metadata from '../../components/Layout/Metadata/Metadata';
-import Banner from '../../components/Banner/Banner';
-import BestSelling from '../../components/BestSelling/BestSelling.jsx';
-import InstagramFollowBanner from '../../components/InstagramFollowBanner/InstagramFollowBanner';
-import LegoFuture from '../../components/LegoFuture/LegoFuture';
-import FAQ from '../../components/FAQ/FAQ';
-import LatestProducts from '../../components/LatestProducts/LatestProducts';
-import { useSelector } from 'react-redux';
+import React from "react";
+import Metadata from "../../components/Layout/Metadata/Metadata";
+import Banner from "../../components/Banner/Banner";
+import BestSelling from "../../components/BestSelling/BestSelling.jsx";
+import InstagramFollowBanner from "../../components/InstagramFollowBanner/InstagramFollowBanner";
+import LegoFuture from "../../components/LegoFuture/LegoFuture";
+import FAQ from "../../components/FAQ/FAQ";
+import LatestProducts from "../../components/LatestProducts/LatestProducts";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-	return (
-		<>
-			<Metadata title={'Home - Buy best products online'} />
-			<div>
-				<Banner />
-				<BestSelling />
-				<LatestProducts />
-				<InstagramFollowBanner />
-				<LegoFuture />
-				<FAQ />
-			</div>
-		</>
-	);
+  return (
+    <>
+      <Metadata title={"Home - Buy best products online"} />
+      <div>
+        <Banner />
+        <div className="">
+          <BestSelling />
+        </div>
+        <div className="h-[90vh] bg-darkBrand">
+          <LatestProducts />
+        </div>
+        <InstagramFollowBanner />
+        <LegoFuture />
+        <FAQ />
+      </div>
+    </>
+  );
 };
 
 export default Home;

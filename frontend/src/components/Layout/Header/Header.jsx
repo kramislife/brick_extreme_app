@@ -10,7 +10,7 @@ import HeaderIcons from "./components/HeaderIcons";
 import MobileMenu from "./components/MobileMenu";
 import SearchPanel from "./components/SearchPanel";
 
-import './Header.css';
+import "./Header.css";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,13 +18,17 @@ const Header = () => {
   const { isSearchOpen, searchPanelRef, toggleSearch } = useSearch();
 
   return (
-    <nav className="bg-brand sticky top-0 z-50 py-3 px-3 border-b border-primary/20">
+    <nav className="bg-brand sticky top-0 z-50 py-3 px-3">
       <div className="mx-4 relative text-sm">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <NavLink to="/">
-              <img className="h-16 w-auto scale-110 mr-3" src={logo} alt="logo" />
+              <img
+                className="h-16 w-auto scale-110 mr-3"
+                src={logo}
+                alt="logo"
+              />
             </NavLink>
           </div>
 
