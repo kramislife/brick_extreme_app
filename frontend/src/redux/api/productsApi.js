@@ -2,21 +2,28 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const productApi = createApi({
 	reducerPath: 'productApi',
-	baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
+	baseQuery: fetchBaseQuery({
+		baseUrl: 'http://localhost:3000/api/v1',
+		credentials: 'include',
+		prepareHeaders: (headers) => {
+			headers.set('Content-Type', 'application/json');
+			return headers;
+		}
+	}),
 	tagTypes: ['Product', 'AdminProducts', 'Reviews'],
 	endpoints: (builder) => ({
 		getProducts: builder.query({
-			query: (params) => ({
-				url: '/products',
-				params: {
-					page: params?.page,
-					keyword: params?.keyword,
-					'price[gte]': params?.min,
-					'price[lte]': params?.max,
-					category: params?.category,
-				},
+				query: (params) => ({
+					url: '/products',
+					params: {
+						page: params?.page,
+						keyword: params?.keyword,
+						'price[gte]': params?.min,
+						'price[lte]': params?.max,
+						category: params?.category,
+					},
+				}),
 			}),
-		}),
 
 		getProductsDetails: builder.query({
 			query: (id) => `/product/${id}`,

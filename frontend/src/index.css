@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.header-text {
-	font-family: 'Roboto Slab', serif;
-}
-
 /* Change the scrollbar width */
 ::-webkit-scrollbar {
 	width: 0px; /* Adjust the width here */

@@ -1,7 +1,16 @@
 body {
-	font-size: 15px;
-	font-weight: 500;
-	font-family: 'Montserrat', sans-serif;
+	/* font-size: 15px;
+	font-weight: 500; */
+	font-family: 'poppins', sans-serif;
 	background: linear-gradient(to top left, #7e9bb2, #1f3a5f) no-repeat;
 	min-height: 100vh;
+	
 }
+
+:root {
+	--brand: #132742; /* Dark Blue */
+	--primary: #E9E7FD; /* Light Blue */
+	--accent: #A31621; /* Red */
+	--dark: #09080D; /* Dark Gray */
+	--muted: #45424D; /* Gray */
+  }
