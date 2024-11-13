@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 const Home = () => {
 	return (
 		<>
-			<Metadata title={'Home- Buy best products online'} />
+			<Metadata title={'Home - Buy best products online'} />
 			<div>
 				<Banner />
 				<BestSelling />
