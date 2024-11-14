@@ -6,10 +6,8 @@ import { Button } from "../../components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "../../components/ui/card";
 
 const BestSelling = () => {
@@ -50,33 +48,26 @@ const BestSelling = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-5">
-        {/* Card 1 */}
-        <Card className="w-[350px] border rounded-md shadow-md bg-brand text-white relative group overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105">
+        <Card className="w-[350px] mx-auto border rounded-md shadow-md bg-brand text-white relative group overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105">
           <CardHeader className="relative overflow-hidden p-0">
-            {/* Product Image with Dark Overlay */}
             <div className="relative w-full h-[300px]">
               <img
-                src={default_image2} // Replace with your product image URL
+                src={default_image2}
                 alt="Nutcracker"
                 className="h-full w-full object-cover rounded-t-md"
               />
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
             </div>
-            {/* Hover Button */}
             <button className="absolute bottom-4 left-1/2 transform -translate-x-1/2 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 bg-button hover:bg-button/85 text-white text-sm font-semibold px-6 py-2 rounded-md transition-all duration-300 ease-in-out">
               View Details
             </button>
           </CardHeader>
           <CardContent className="p-4">
-            {/* Product Title */}
             <h2 className="text-lg font-semibold">Nutcracker</h2>
-            {/* Product Price */}
             <p className="text-red-500 text-md">$800</p>
           </CardContent>
           <CardFooter className="p-4">
-            {/* Rating */}
             <div className="flex items-center justify-center">
-              {/* Stars */}
               <div className="flex text-yellow-500">
                 {[...Array(5)].map((_, index) => (
                   <svg
@@ -90,39 +81,31 @@ const BestSelling = () => {
                   </svg>
                 ))}
               </div>
-              {/* Reviews */}
               <span className="ml-2 text-gray-300 text-sm">(88)</span>
             </div>
           </CardFooter>
         </Card>
 
-        {/* Card 2 */}
-        <Card className="w-[350px] border rounded-md shadow-md bg-brand text-white relative group overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105">
+        <Card className="w-[350px] mx-auto border rounded-md shadow-md bg-brand text-white relative group overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105">
           <CardHeader className="relative overflow-hidden p-0">
-            {/* Product Image with Dark Overlay */}
             <div className="relative w-full h-[300px]">
               <img
-                src={default_image2} // Replace with your product image URL
+                src={default_image2}
                 alt="Nutcracker"
                 className="h-full w-full object-cover rounded-t-md"
               />
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
             </div>
-            {/* Hover Button */}
             <button className="absolute bottom-4 left-1/2 transform -translate-x-1/2 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 bg-button hover:bg-button/85 text-white text-sm font-semibold px-6 py-2 rounded-md transition-all duration-300 ease-in-out">
               View Details
             </button>
           </CardHeader>
           <CardContent className="p-4">
-            {/* Product Title */}
             <h2 className="text-lg font-semibold">Nutcracker</h2>
-            {/* Product Price */}
             <p className="text-red-500 text-md">$800</p>
           </CardContent>
           <CardFooter className="p-4">
-            {/* Rating */}
             <div className="flex items-center justify-center">
-              {/* Stars */}
               <div className="flex text-yellow-500">
                 {[...Array(5)].map((_, index) => (
                   <svg
@@ -136,38 +119,31 @@ const BestSelling = () => {
                   </svg>
                 ))}
               </div>
-              {/* Reviews */}
               <span className="ml-2 text-gray-300 text-sm">(88)</span>
             </div>
           </CardFooter>
         </Card>
 
-        <Card className="w-[350px] border rounded-md shadow-md bg-brand text-white relative group overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105">
+        <Card className="w-[350px] mx-auto border rounded-md shadow-md bg-brand text-white relative group overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105">
           <CardHeader className="relative overflow-hidden p-0">
-            {/* Product Image with Dark Overlay */}
             <div className="relative w-full h-[300px]">
               <img
-                src={default_image2} // Replace with your product image URL
+                src={default_image2}
                 alt="Nutcracker"
                 className="h-full w-full object-cover rounded-t-md"
               />
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
             </div>
-            {/* Hover Button */}
             <button className="absolute bottom-4 left-1/2 transform -translate-x-1/2 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 bg-button hover:bg-button/85 text-white text-sm font-semibold px-6 py-2 rounded-md transition-all duration-300 ease-in-out">
               View Details
             </button>
           </CardHeader>
           <CardContent className="p-4">
-            {/* Product Title */}
             <h2 className="text-lg font-semibold">Nutcracker</h2>
-            {/* Product Price */}
             <p className="text-red-500 text-md">$800</p>
           </CardContent>
           <CardFooter className="p-4">
-            {/* Rating */}
             <div className="flex items-center justify-center">
-              {/* Stars */}
               <div className="flex text-yellow-500">
                 {[...Array(5)].map((_, index) => (
                   <svg
@@ -181,38 +157,31 @@ const BestSelling = () => {
                   </svg>
                 ))}
               </div>
-              {/* Reviews */}
               <span className="ml-2 text-gray-300 text-sm">(88)</span>
             </div>
           </CardFooter>
         </Card>
 
-        <Card className="w-[350px] border rounded-md shadow-md bg-brand text-white relative group overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105">
+        <Card className="w-[350px] mx-auto border rounded-md shadow-md bg-brand text-white relative group overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105">
           <CardHeader className="relative overflow-hidden p-0">
-            {/* Product Image with Dark Overlay */}
             <div className="relative w-full h-[300px]">
               <img
-                src={default_image2} // Replace with your product image URL
+                src={default_image2}
                 alt="Nutcracker"
                 className="h-full w-full object-cover rounded-t-md"
               />
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
             </div>
-            {/* Hover Button */}
             <button className="absolute bottom-4 left-1/2 transform -translate-x-1/2 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 bg-button hover:bg-button/85 text-white text-sm font-semibold px-6 py-2 rounded-md transition-all duration-300 ease-in-out">
               View Details
             </button>
           </CardHeader>
           <CardContent className="p-4">
-            {/* Product Title */}
             <h2 className="text-lg font-semibold">Nutcracker</h2>
-            {/* Product Price */}
             <p className="text-red-500 text-md">$800</p>
           </CardContent>
           <CardFooter className="p-4">
-            {/* Rating */}
             <div className="flex items-center justify-center">
-              {/* Stars */}
               <div className="flex text-yellow-500">
                 {[...Array(5)].map((_, index) => (
                   <svg
@@ -226,13 +195,10 @@ const BestSelling = () => {
                   </svg>
                 ))}
               </div>
-              {/* Reviews */}
               <span className="ml-2 text-gray-300 text-sm">(88)</span>
             </div>
           </CardFooter>
         </Card>
-
-        {/* Add other Cards in similar fashion */}
       </div>
 
       {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
