@@ -2,26 +2,27 @@ import React from "react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Truck, Headphones, ShieldCheck } from "lucide-react";
+import lightsaber from "../../assets/lightsaber.png";
 
 const Subscribe = () => {
   return (
     <div className="w-full py-16">
       {/* Subscribe Section */}
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="relative overflow-hidden rounded-lg bg-[#1A2333] p-8 md:p-12">
+      <div className="max-w-8xl mx-auto px-12">
+        <div className="relative rounded-lg p-8 md:p-12 h-[90vh]">
           {/* Background Image */}
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-20"
-            style={{
-              backgroundImage: `url('/path-to-your-lightsaber-image.jpg')`,
-            }}
+          <img
+            src={lightsaber}
+            alt="Lightsaber"
+            className="absolute top-0 inset-0 right-0 bg-cover transform translate-x-8 -translate-y-8 opacity-50 rounded-lg"
           />
 
           {/* Content */}
-          <div className="relative z-10 text-center">
+          <div className="relative top-36 z-10 text-center">
             <h2 className="text-4xl text-gray-200 font-bold mb-4">
               Subscribe and Save
             </h2>
+            <img src="" alt="" />
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
               Unlock exclusive deals and never miss out! Subscribe now and save
               on your next LEGO adventure. Get the latest updates, special
@@ -43,7 +44,7 @@ const Subscribe = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Free Delivery */}
           <div className="text-center">
             <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">

@@ -4,40 +4,40 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import image1 from "../../assets/droid1.jpg";
 import image2 from "../../assets/droid2.png";
 
-const Categories = () => {
-  const categories = [
-    {
-      id: 1,
-      title: "Lifestyle and Dino Eggs",
-      image: image1,
-    },
-    {
-      id: 2,
-      title: "Pocket Monsters",
-      image: image2,
-    },
-    {
-      id: 3,
-      title: "Lifestyle and Dino Eggs",
-      image: image1,
-    },
-    {
-      id: 4,
-      title: "Lifestyle and Dino Eggs",
-      image: image2,
-    },
-    {
-      id: 5,
-      title: "Pocket Monsters",
-      image: image1,
-    },
-    {
-      id: 6,
-      title: "Lifestyle and Dino Eggs",
-      image: image1,
-    },
-  ];
+const categories = [
+  {
+    id: 1,
+    title: "Lifestyle and Dino Eggs",
+    image: image1,
+  },
+  {
+    id: 2,
+    title: "Pocket Monsters",
+    image: image2,
+  },
+  {
+    id: 3,
+    title: "Lifestyle and Dino Eggs",
+    image: image1,
+  },
+  {
+    id: 4,
+    title: "Lifestyle and Dino Eggs",
+    image: image2,
+  },
+  {
+    id: 5,
+    title: "Pocket Monsters",
+    image: image1,
+  },
+  {
+    id: 6,
+    title: "Lifestyle and Dino Eggs",
+    image: image1,
+  },
+];
 
+const Categories = () => {
   return (
     <div className="p-4">
       <h2 className="text-3xl text-gray-300 font-extrabold mb-4 text-center pt-6 header-text">

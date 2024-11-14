@@ -200,8 +200,14 @@ const BestSelling = () => {
           </CardFooter>
         </Card>
       </div>
+    </div>
+  );
+};
 
-      {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+export default BestSelling;
+
+{
+  /* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {bestSellingProducts.map((product) => (
           <div
             key={product._id}
@@ -228,9 +234,5 @@ const BestSelling = () => {
             </div>
           </div>
         ))}
-      </div> */}
-    </div>
-  );
-};
-
-export default BestSelling;
+      </div> */
+}
