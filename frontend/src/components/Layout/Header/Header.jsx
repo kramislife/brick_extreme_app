@@ -18,7 +18,7 @@ const Header = () => {
   const { isSearchOpen, searchPanelRef, toggleSearch } = useSearch();
 
   return (
-    <nav className="bg-brand sticky top-0 z-50 py-3 px-3">
+    <nav className="bg-brand-gradient sticky top-0 z-50 py-3 px-3">
       <div className="mx-4 relative text-sm">
         <div className="flex justify-between items-center">
           {/* Logo */}

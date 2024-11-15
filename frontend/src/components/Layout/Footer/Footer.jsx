@@ -60,7 +60,7 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-darkBrand to-[#020617] text-light">
+    <footer className="bg-gradient-to-b from-brand-start to-darkBrand text-light">
       <div className="max-w-8xl mx-auto px-5 md:px-12 pt-16">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-12">
           {footerLinks.map((link) => (
@@ -85,7 +85,7 @@ const Footer = () => {
             </div>
           ))}
 
-          <div className="col-span-2 lg:col-span-1 flex flex-col space-y-6 mt-8 lg:mt-0">
+          <div className="flex flex-col space-y-6 mt-8 lg:mt-0">
             <h3 className="text-xl font-bold tracking-wide text-gray-200 relative inline-block">
               Bricks Extreme
               <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-red-600"></span>
@@ -129,7 +129,7 @@ const Footer = () => {
 
       <Separator className="bg-gray-800/50 mt-8 max-w-[1440px] mx-auto" />
 
-      <div className="text-center text-sm px-6 text-gray-500 py-5">
+      <div className="text-center text-sm px-6 text-gray-400 py-5">
         <p className="hover:text-gray-400 transition-colors">
           © Copyright Brick Extreme 2024. All rights reserved
         </p>

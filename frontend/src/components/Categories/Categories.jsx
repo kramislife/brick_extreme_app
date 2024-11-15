@@ -113,7 +113,7 @@ const Categories = () => {
             custom={index}
           >
             <Card
-              className="overflow-hidden bg-[#1A2333] border-none rounded-lg cursor-pointer"
+              className="overflow-hidden bg-gradient-r border-none rounded-lg cursor-pointer"
             >
               <motion.div 
                 className="relative h-48 sm:h-64"

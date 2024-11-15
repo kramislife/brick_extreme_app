@@ -18,19 +18,19 @@ const Home = () => {
       <Metadata title={"Home - Buy best products online"} />
       <div>
         <Banner />
-        <div className="lg:min-h-[90vh]">
+        <div className="lg:min-h-[90vh] bg-brand-gradient">
           <BestSelling />
         </div>
-        <div className="lg:min-h-[90vh] bg-darkBrand">
+        <div className="lg:min-h-[90vh] bg-brand-gradient-r">
           <LatestProducts />
         </div>
-        <div className="lg:min-h-[90vh]">
+        <div className="lg:min-h-[90vh] bg-brand-gradient">
           <FeaturedProducts />
         </div>
-        <div className="lg:min-h-[90vh] bg-darkBrand">
+        <div className="lg:min-h-[90vh] bg-brand-gradient-r">
           <Categories />
         </div>
-        <div className="lg:min-h-[90vh]">
+        <div className="lg:min-h-[90vh] bg-brand-gradient">
           <Subscribe />
         </div>
         {/* <LegoFuture />

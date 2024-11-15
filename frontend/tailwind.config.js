@@ -4,7 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: "#132742",
+        brand: {
+          DEFAULT: "#132742",
+          start: "#132742",
+          end: "#1f3a5f",
+        },
         darkBrand: "#0F1F35",
         light: "#E9E7FD" /* Light Blue */,
         button: "#A31621" /* Red */,
@@ -59,6 +63,10 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      backgroundImage: {
+        'brand-gradient': 'linear-gradient(to bottom, var(--brand-start), var(--brand-end))',
+        'brand-gradient-r': 'linear-gradient(to right, var(--brand-start), var(--brand-end))',
       },
     },
   },

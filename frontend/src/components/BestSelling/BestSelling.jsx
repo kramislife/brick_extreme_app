@@ -85,7 +85,7 @@ const BestSelling = () => {
             key={item.id}
             variants={itemVariants}
           >
-            <Card className="w-[350px] mx-auto border rounded-md shadow-md bg-brand text-white relative group overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105">
+            <Card className="w-[350px] mx-auto border rounded-md shadow-md bg-brand-gradient-r text-white relative group overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105">
               <CardHeader className="relative overflow-hidden p-0">
                 <div className="relative w-full h-[300px]">
                   <img
