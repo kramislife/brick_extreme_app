@@ -15,18 +15,19 @@ const App = () => {
   return (
     <SearchProvider>
       <BrowserRouter>
+      <div className="min-h-screen flex flex-col">
         <Header />
-        <div className="app-container bg-brand">
+        <div className="app-container bg-brand flex-grow">
           <Toaster position="top-center" />
-          <div className="">
+        
             <Routes>
               {UserRoutes}
               {AdminRoutes}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
-        </div>
         <Footer />
+      </div>
       </BrowserRouter>
     </SearchProvider>
   );

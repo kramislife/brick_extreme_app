@@ -60,7 +60,7 @@ const Subscribe = () => {
     <div ref={ref} className="w-full py-16">
       <div className="max-w-8xl mx-auto px-12">
         <motion.div 
-          className="relative rounded-lg p-8 md:p-12 h-[90vh]"
+          className="relative rounded-lg p-8 md:p-12 h-[70vh] lg:h-[90vh]"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}

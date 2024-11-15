@@ -4,124 +4,132 @@ import { Input } from "../../../components/ui/input";
 import { Separator } from "../../../components/ui/separator";
 import { Button } from "../../../components/ui/button";
 
+const footerLinks = [
+  {
+    id: 1,
+    title: "Account",
+    links: ["My Account", "Login / Register", "Cart", "Wishlist"],
+  },
+  {
+    id: 2,
+    title: "Quick Link",
+    links: ["Privacy Policy", "Terms Of Use", "FAQ", "Contact"],
+  },
+  {
+    id: 3,
+    title: "Support",
+    links: [
+      "2406 W 1350 N",
+      "Lehi, Utah, 84043",
+      "brickextremeofficial@gmail.com",
+      "+11111-222222-3333",
+    ],
+  },
+];
+
+const socialLinks = [
+  {
+    id: 1,
+    icon: Facebook,
+    color: "hover:text-blue-500",
+    href: "https://facebook.com",
+    label: "Facebook"
+  },
+  {
+    id: 2,
+    icon: Twitter,
+    color: "hover:text-blue-400",
+    href: "https://twitter.com",
+    label: "Twitter"
+  },
+  {
+    id: 3,
+    icon: Instagram,
+    color: "hover:text-pink-500",
+    href: "https://instagram.com",
+    label: "Instagram"
+  },
+  {
+    id: 4,
+    icon: Linkedin,
+    color: "hover:text-blue-600",
+    href: "https://linkedin.com",
+    label: "LinkedIn"
+  }
+];
+
 const Footer = () => {
   return (
-    <footer className="bg-darkBrand text-light">
-      <div className="max-w-[1440px] mx-auto px-8 grid grid-cols-2 lg:grid-cols-12 gap-x-8 gap-y-16 pt-16">
-        {/* Mobile-first layout: These will appear first on mobile in 2 columns */}
-        
-        {/* Column: Account */}
-        <div className="col-span-1 lg:col-span-2 lg:order-2 space-y-6">
-          <h3 className="text-xl font-bold tracking-wide text-gray-200">
-            Account
-          </h3>
-          <ul className="space-y-4 text-gray-400">
-            <li className="hover:text-red-500 cursor-pointer transition-colors duration-200 flex items-center">
-              <span className="hover:translate-x-2 transition-transform duration-200">
-                My Account
-              </span>
-            </li>
-            <li className="hover:text-red-500 cursor-pointer transition-colors duration-200 flex items-center">
-              <span className="hover:translate-x-2 transition-transform duration-200">
-                Login / Register
-              </span>
-            </li>
-            <li className="hover:text-red-500 cursor-pointer transition-colors duration-200 flex items-center">
-              <span className="hover:translate-x-2 transition-transform duration-200">
-                Cart
-              </span>
-            </li>
-            <li className="hover:text-red-500 cursor-pointer transition-colors duration-200 flex items-center">
-              <span className="hover:translate-x-2 transition-transform duration-200">
-                Wishlist
-              </span>
-            </li>
-          </ul>
-        </div>
+    <footer className="bg-gradient-to-b from-darkBrand to-[#020617] text-light">
+      <div className="max-w-8xl mx-auto px-5 md:px-12 pt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-12">
+          {footerLinks.map((link) => (
+            <div key={link.id} className="space-y-6">
+              <h3 className="text-xl font-bold tracking-wide text-gray-200 relative inline-block">
+                {link.title}
+                <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-red-600"></span>
+              </h3>
+              <ul className="space-y-4 text-gray-400">
+                {link.links.map((item) => (
+                  <li
+                    key={item}
+                    className="hover:text-red-500 cursor-pointer transition-all duration-200 flex items-center group"
+                  >
+                    <div className="w-4 h-4 mr-2 opacity-0 -ml-6 group-hover:ml-0 group-hover:opacity-100 transition-all duration-200 text-red-500" />
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
-        {/* Column: Quick Link */}
-        <div className="col-span-1 lg:col-span-3 lg:order-3 space-y-6">
-          <h3 className="text-xl font-bold tracking-wide text-gray-200">
-            Quick Link
-          </h3>
-          <ul className="space-y-4 text-gray-400">
-            <li className="hover:text-red-500 cursor-pointer transition-colors duration-200 flex items-center">
-              <span className="hover:translate-x-2 transition-transform duration-200">
-                Privacy Policy
-              </span>
-            </li>
-            <li className="hover:text-red-500 cursor-pointer transition-colors duration-200 flex items-center">
-              <span className="hover:translate-x-2 transition-transform duration-200">
-                Terms Of Use
-              </span>
-            </li>
-            <li className="hover:text-red-500 cursor-pointer transition-colors duration-200 flex items-center">
-              <span className="hover:translate-x-2 transition-transform duration-200">
-                FAQ
-              </span>
-            </li>
-            <li className="hover:text-red-500 cursor-pointer transition-colors duration-200 flex items-center">
-              <span className="hover:translate-x-2 transition-transform duration-200">
-                Contact
-              </span>
-            </li>
-          </ul>
-        </div>
-
-        {/* Column: Support */}
-        <div className="col-span-1 lg:col-span-3 lg:order-4 space-y-6">
-          <h3 className="text-xl font-bold tracking-wide text-gray-200">
-            Support
-          </h3>
-          <ul className="space-y-4 text-gray-400">
-            <li className="flex items-center space-x-3">
-              <span>111 Sample Address</span>
-            </li>
-            <li className="flex items-center space-x-3">
-              <span>@123 Street.</span>
-            </li>
-            <li className="flex items-center space-x-3 hover:text-red-500 cursor-pointer transition-colors">
-              <span>sample@gmail.com</span>
-            </li>
-            <li className="flex items-center space-x-3 hover:text-red-500 cursor-pointer transition-colors">
-              <span>+11111-222222-3333</span>
-            </li>
-          </ul>
-        </div>
-
-        {/* Column: Bricks Extreme - Will appear at bottom on mobile */}
-        <div className="col-span-2 lg:col-span-4 lg:order-1 space-y-6 text-center lg:text-left">
-          <h3 className="text-xl font-bold tracking-wide text-gray-200">
-            Bricks Extreme
-          </h3>
-          <p className="text-gray-400 text-sm leading-relaxed mx-auto lg:mx-0 max-w-md">
-            Join Brick Extreme to get updates on new releases, exclusive promotions, 
-            and be the first to know about our latest collections.
-          </p>
-          <div className="relative max-w-md mx-auto lg:mx-0">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              className="bg-gray-800/50 border-gray-700 text-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-red-500 focus:border-transparent pr-24"
-            />
-            <Button className="absolute right-0 top-0 h-full bg-red-600 hover:bg-red-700 text-white transition-colors rounded-l-none">
-              Subscribe
-            </Button>
-          </div>
-          <div className="flex space-x-6 pt-4 justify-center lg:justify-start">
-            <Facebook className="w-5 h-5 text-gray-400 hover:text-blue-500 transition-colors cursor-pointer" />
-            <Twitter className="w-5 h-5 text-gray-400 hover:text-blue-400 transition-colors cursor-pointer" />
-            <Instagram className="w-5 h-5 text-gray-400 hover:text-pink-500 transition-colors cursor-pointer" />
-            <Linkedin className="w-5 h-5 text-gray-400 hover:text-blue-600 transition-colors cursor-pointer" />
+          <div className="col-span-2 lg:col-span-1 flex flex-col space-y-6 mt-8 lg:mt-0">
+            <h3 className="text-xl font-bold tracking-wide text-gray-200 relative inline-block">
+              Bricks Extreme
+              <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-red-600"></span>
+            </h3>
+            <div className="flex flex-col space-y-6">
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Join Brick Extreme to get updates on new releases, exclusive
+                promotions, and be the first to know about our latest collections.
+              </p>
+              <div className="relative max-w-md">
+                <Input 
+                  type="email" 
+                  placeholder="Enter your email" 
+                  className="bg-gray-800/50 border-gray-700 text-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-red-500 focus:border-transparent pr-24"
+                />
+                <Button className="absolute right-0 top-0 h-full bg-red-600 hover:bg-red-700 text-white transition-all duration-200 rounded-l-none">
+                  Subscribe
+                </Button>
+              </div>
+              <div className="flex items-center space-x-4 pt-2">
+                {socialLinks.map((social) => {
+                  const Icon = social.icon;
+                  return (
+                    <a
+                      key={social.id}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.label}
+                      className={`w-10 h-10 rounded-full bg-gray-800/50 flex items-center justify-center group transition-all duration-200 hover:bg-gray-700/50 hover:scale-110`}
+                    >
+                      <Icon className={`w-5 h-5 text-gray-400 ${social.color} transition-colors duration-200`} />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Separator */}
-      <Separator className="bg-gray-800 mt-8 max-w-[1440px] mx-auto" />
+      <Separator className="bg-gray-800/50 mt-8 max-w-[1440px] mx-auto" />
 
-      {/* Bottom Section */}
-      <div className="text-center text-sm px-6 py-6 text-gray-500">
+      <div className="text-center text-sm px-6 text-gray-500 py-5">
         <p className="hover:text-gray-400 transition-colors">
           © Copyright Brick Extreme 2024. All rights reserved
         </p>
