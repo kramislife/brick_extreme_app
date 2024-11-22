@@ -75,7 +75,7 @@ const Footer = () => {
                     key={item}
                     className="hover:text-red-500 cursor-pointer transition-all duration-200 flex items-center group"
                   >
-                    <div className="w-4 h-4 mr-2 opacity-0 -ml-6 group-hover:ml-0 group-hover:opacity-100 transition-all duration-200 text-red-500" />
+                    <div className="w-4 h-4 mr-2 opacity-0 -ml-6 group-hover:-ml-5 group-hover:opacity-100 transition-all duration-200 text-red-500" />
                     <span className="group-hover:translate-x-1 transition-transform duration-200">
                       {item}
                     </span>
